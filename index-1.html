@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PDF Watermark Remover - Free Online PDF Watermark Remover Tool by Subrat</title>
+<meta name="description" content="Free online PDF Watermark Remover tool by Subrat. Remove watermark overlays from PDFs you own, right in your browser. No upload, no sign-up, no limits.">
+<meta name="keywords" content="PDF watermark remover, remove watermark from PDF, free PDF watermark remover, clean PDF online">
+<meta name="author" content="Subrat">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PDF Watermark Remover - Free tool by Subrat">
+<meta property="og:description" content="Remove watermark overlays from your PDFs for free. Private: files never leave your browser.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%84%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PDF Watermark Remover","description":"Free browser-based tool to remove watermark overlays from PDFs you own.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@type":"Person","name":"Subrat"}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<style>
+:root{--bg:#fff;--fg:#171717;--mu:#737373;--bd:#e5e5e5;--ac:#171717;--ok:#15803d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111;--fg:#f5f5f5;--mu:#a3a3a3;--bd:#2a2a2a;--ac:#f5f5f5;--ok:#4ade80}}
+:root[data-theme="dark"]{--bg:#111;--fg:#f5f5f5;--mu:#a3a3a3;--bd:#2a2a2a;--ac:#f5f5f5;--ok:#4ade80}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{height:64px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:auto;padding:0 16px;font-weight:600}
+header span{color:var(--mu);font-weight:400;font-size:14px}
+main{max-width:640px;margin:0 auto;padding:40px 16px;text-align:center}
+h1{font-size:clamp(28px,6vw,40px);margin:8px 0}
+.sub{font-weight:600}.mu{color:var(--mu);font-size:14px}
+.drop{border:2px dashed var(--bd);border-radius:12px;padding:48px 16px;margin:24px 0 8px;transition:.2s}
+.drop.on{border-color:var(--fg);background:rgba(128,128,128,.08)}.drop.on .ic{transform:translateY(-6px)}
+.ic{font-size:36px;transition:.2s;display:block}
+button,.btn{background:var(--ac);color:var(--bg);border:0;border-radius:8px;padding:10px 18px;font:inherit;cursor:pointer}
+button.sec{background:transparent;color:var(--fg);border:1px solid var(--bd)}
+.card{border:1px solid var(--bd);border-radius:8px;padding:16px;margin:16px 0;text-align:left}
+.bar{height:8px;background:var(--bd);border-radius:4px;overflow:hidden;margin:12px 0}
+.bar i{display:block;height:100%;width:0;background:var(--fg);transition:width .25s}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.hide{display:none}
+#field{position:relative;height:220px;border:1px solid var(--bd);border-radius:8px;overflow:hidden;background:rgba(128,128,128,.05);touch-action:manipulation}
+.mk{position:absolute;border:0;background:rgba(128,128,128,.25);color:var(--mu);padding:2px 8px;font-size:13px;transform:rotate(-20deg);border-radius:4px}
+.shake{animation:sh .2s}@keyframes sh{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+footer{text-align:center;color:var(--mu);font-size:13px;padding:24px}
+:root{--bl:#2563eb;--sh:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+header nav{display:flex;gap:16px;align-items:center;font-size:14px}header nav a{color:var(--mu);text-decoration:none;font-weight:400}header nav a:hover{color:var(--fg)}
+header nav button{padding:4px 10px}
+main>div{animation:fi .35s ease}@keyframes fi{from{opacity:0;transform:translateY(6px)}}
+button,.btn{transition:transform .15s,box-shadow .15s,opacity .15s}button:hover,.btn:hover{transform:translateY(-1px);box-shadow:var(--sh)}button:active{transform:none}
+.drop{padding:56px 16px;box-shadow:var(--sh)}.drop:hover{border-color:var(--mu)}.drop.on{border-color:var(--bl)}
+.card{box-shadow:var(--sh)}
+.bar{height:10px}.bar i{background:linear-gradient(90deg,var(--bl),#60a5fa);background-size:200% 100%;animation:sm 1.4s linear infinite}@keyframes sm{to{background-position:-200% 0}}
+#field{height:280px;background-image:linear-gradient(var(--bd) 1px,transparent 1px);background-size:100% 28px;cursor:crosshair}
+.mk{transform:none;box-shadow:var(--sh);color:var(--fg);animation:pi .15s}@keyframes pi{from{opacity:0;scale:.7}}
+.mk.decoy{background:transparent;border:1px dashed var(--mu);color:var(--fg);font-weight:600}
+.mk.gold{background:#facc15;color:#422006;font-weight:700}
+.pop{position:absolute;font-weight:700;color:var(--ok);pointer-events:none;animation:fl .7s ease-out forwards}.pop.bad{color:#dc2626}
+@keyframes fl{to{transform:translateY(-30px);opacity:0}}
+.end{padding:70px 0;line-height:1.8}
+.how{display:grid;gap:12px;margin-top:40px;text-align:left}@media(min-width:640px){.how{grid-template-columns:repeat(3,1fr)}}
+.how h3{margin:0 0 4px;font-size:15px}.how p{margin:0;color:var(--mu);font-size:14px}
+dialog{border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--fg);max-width:480px;width:calc(100% - 32px);padding:24px;box-shadow:var(--sh)}dialog::backdrop{background:rgba(0,0,0,.4)}
+dialog h2{margin:0 0 12px}dialog li{margin:8px 0;color:var(--mu)}dialog ul,dialog ol{padding-left:20px}
+textarea{width:100%;margin-top:12px;border:1px solid var(--bd);border-radius:8px;background:transparent;color:var(--fg);font:inherit;padding:10px;resize:vertical}
+#em button{font-size:24px;padding:6px 14px}#em button.sel{border-color:var(--bl);background:rgba(37,99,235,.12)}
+</style></head><body>
+<header><div>📄 PDF Watermark Remover</div><nav><a href="#" data-m="how">How It Works</a><a href="#" data-m="priv">Privacy</a><button class="sec" id="th" title="Toggle theme">◐</button></nav></header>
+<main>
+<div id="v1">
+<span class="ic">📄</span><h1>Clean your PDF. Keep your document.</h1>
+<div class="sub">PDF Watermark Remover tool by Subrat</div>
+<p class="mu">Remove unwanted overlays from PDFs while preserving the original structure and quality whenever technically possible.</p>
+<div class="drop" id="drop"><span class="ic">📄</span><p id="dt">Drop your PDF here</p><p class="mu">or</p><label class="btn">Browse files<input id="f" type="file" accept="application/pdf,.pdf" hidden></label><p class="mu">PDF only • Processed locally in your browser</p></div>
+<p class="mu" id="err" style="color:#dc2626"></p>
+<div class="card hide" id="fc"><b id="fn"></b><div class="mu" id="fm"></div><div class="row"><button class="sec" id="rm">Remove</button><button id="go">Start Cleaning</button></div></div>
+</div>
+<div id="v2" class="hide">
+<h1>Cleaning your PDF</h1><div class="mu" id="pn"></div>
+<div id="pg" style="font-weight:600;margin-top:12px"></div><div class="bar"><i id="pb"></i></div><div class="mu" id="op"></div>
+<div class="row"><button class="sec" id="cn">Cancel</button></div>
+<div class="card"><b>Clean the Page</b> <span class="mu">Tap the unwanted marks!</span>
+<div class="mu">Score <b id="sc">0</b> • Combo <b id="cb">0</b> • <span id="tm">30</span>s • Best <b id="bs">0</b></div>
+<div id="field"></div><div class="row"><button class="sec" id="snd">🔇 Sound off</button><button class="sec" id="pl">Play Again</button></div><p class="mu" style="margin:8px 0 0">Tap watermarks. Avoid solid content like "Page 3". Gold = bonus. Combos multiply.</p></div>
+</div>
+<div id="v3" class="hide">
+<div style="font-size:40px;color:var(--ok)">✓</div><h1>Your PDF is ready</h1>
+<div class="card"><div class="mu">Original</div><b id="o1"></b><div class="mu" style="margin-top:8px">New file</div><b id="o2"></b></div>
+<div class="card mu" id="rp"></div>
+<div class="card" id="fb"><b>How was your experience?</b> <span class="mu">(optional)</span>
+<div class="row" id="em"><button class="sec" data-e="😍">😍</button><button class="sec" data-e="😊">😊</button><button class="sec" data-e="😐">😐</button><button class="sec" data-e="😕">😕</button></div>
+<textarea id="ft" rows="3" placeholder="Say thanks or describe any issue so we can improve…"></textarea>
+<div class="row"><button id="fs">Send feedback</button></div><div class="mu" id="fo" style="text-align:center;margin-top:8px"></div></div>
+<div class="row"><button id="dl">Download Clean PDF</button><button class="sec" id="again">Clean Another PDF</button></div>
+</div>
+<section id="how" class="how"><div class="card"><h3>1. Upload</h3><p>Drop a PDF you own. It is validated instantly.</p></div><div class="card"><h3>2. Clean</h3><p>Overlays are removed page by page, structure intact.</p></div><div class="card" id="priv"><h3>3. Download</h3><p>Everything runs in your browser. Nothing is uploaded.</p></div></section></main>
+<dialog id="md"><div id="mb"></div><div class="row"><button id="mc">Close</button></div></dialog>
+<footer>Developed by Subrat</footer>
+<script>
+const $=id=>document.getElementById(id),{PDFDocument,PDFName,PDFArray,PDFDict,decodePDFRawStream,PDFRawStream}=PDFLib;
+let file,bytes,cancelled=false,outBlob,outName;
+const show=n=>{["v1","v2","v3"].forEach((v,i)=>$(v).classList.toggle("hide",i!=n-1));$("how").classList.toggle("hide",n!=1)};
+$("th").onclick=()=>{const r=document.documentElement,d=matchMedia("(prefers-color-scheme: dark)").matches,cur=r.dataset.theme||(d?"dark":"light");r.dataset.theme=cur==="dark"?"light":"dark"};
+const fmt=b=>(b/1048576).toFixed(2)+" MB";
+async function pick(fl){
+ $("err").textContent="";$("fc").classList.add("hide");if(!fl)return;
+ try{
+  bytes=new Uint8Array(await fl.arrayBuffer());
+  const magic=String.fromCharCode(...bytes.slice(0,5));
+  if(!/\.pdf$/i.test(fl.name)||magic!=="%PDF-"||fl.size>150*1048576)throw 0;
+  let d;try{d=await PDFDocument.load(bytes)}catch(e){
+   if(/encrypt/i.test(e.message)){$("err").textContent="This PDF is password protected. Encrypted files are not supported.";return}throw 0}
+  file=fl;$("fn").textContent=fl.name;$("fm").textContent=fmt(fl.size)+" • "+d.getPageCount()+" pages";$("fc").classList.remove("hide");
+ }catch(e){$("err").innerHTML="This doesn't appear to be a valid PDF. <a href='' onclick='location.reload();return false'>Try another file</a>"}
+}
+$("f").onchange=e=>pick(e.target.files[0]);
+const dr=$("drop");
+["dragenter","dragover"].forEach(t=>dr.addEventListener(t,e=>{e.preventDefault();dr.classList.add("on");$("dt").textContent="Drop PDF to start"}));
+["dragleave","drop"].forEach(t=>dr.addEventListener(t,e=>{e.preventDefault();dr.classList.remove("on");$("dt").textContent="Drop your PDF here"}));
+dr.addEventListener("drop",e=>pick(e.dataTransfer.files[0]));
+$("rm").onclick=()=>{file=null;$("fc").classList.add("hide")};
+function decode(ctx,ref){const s=ctx.lookup(ref);return s instanceof PDFRawStream?decodePDFRawStream(s).decode():s.getUnencodedContents()}
+function stripWM(txt){
+ let n=0,re=/\/Artifact\s*<<[^>]*\/Watermark[^>]*>>\s*BDC/g,m;
+ while((m=re.exec(txt))){
+  let d=1,t=/\b(BDC|BMC|EMC)\b/g;t.lastIndex=re.lastIndex;let x;
+  while(d>0&&(x=t.exec(txt)))d+=x[1]==="EMC"?-1:1;
+  if(d>0)break;
+  txt=txt.slice(0,m.index)+txt.slice(t.lastIndex);re.lastIndex=m.index;n++;
+ }
+ return[txt,n];
+}
+const tick=()=>new Promise(r=>setTimeout(r,0));
+function prog(p,i,t,op){$("pb").style.width=p+"%";$("pg").textContent="Page "+i+" of "+t;$("op").textContent=op}
+$("go").onclick=async()=>{
+ cancelled=false;show(2);$("pn").textContent=file.name;startGame();
+ try{
+  prog(5,0,0,"Validating document…");await tick();
+  const doc=await PDFDocument.load(bytes),ctx=doc.context,pages=doc.getPages(),T=pages.length,sizes=pages.map(p=>p.getSize());
+  let removed=0,touched=[],review=[];
+  for(let i=0;i<T;i++){
+   if(cancelled)return;
+   const pg=pages[i];prog(5+i/T*80,i+1,T,"Analyzing page structure…");await tick();
+   try{
+    const c=pg.node.Contents();let refs=[];
+    if(c instanceof PDFArray)for(let k=0;k<c.size();k++)refs.push(c.get(k));
+    else if(c)refs.push(pg.node.get(PDFName.of("Contents")));
+    let n=0;
+    if(refs.length){
+     const parts=refs.map(r=>new TextDecoder("latin1").decode(decode(ctx,r)));
+     const [t2,k]=stripWM(parts.join("\n"));
+     if(k){const u=new Uint8Array(t2.length);for(let q=0;q<t2.length;q++)u[q]=t2.charCodeAt(q)&255;
+      pg.node.set(PDFName.of("Contents"),ctx.register(ctx.flateStream(u)));n+=k}
+    }
+    const an=pg.node.Annots();
+    if(an){for(let k=an.size()-1;k>=0;k--){const a=ctx.lookup(an.get(k));
+     if(a instanceof PDFDict&&a.get(PDFName.of("Subtype"))?.toString()==="/Watermark"){an.remove(k);n++}}}
+    if(n){removed+=n;touched.push(i+1)}
+    prog(5+(i+1)/T*80,i+1,T,n?"Page cleaned ✓":"No removable overlay on this page");
+   }catch(e){review.push(i+1)}
+  }
+  prog(88,T,T,"Assembling PDF…");await tick();
+  const out=await doc.save();
+  prog(95,T,T,"Validating document…");await tick();
+  const chk=await PDFDocument.load(out),cp=chk.getPages();
+  let ok=cp.length===T&&cp.every((p,i)=>p.getWidth()===sizes[i].width&&p.getHeight()===sizes[i].height);
+  if(!ok)throw new Error("Validation failed");
+  if(cancelled)return;
+  prog(100,T,T,"Done");
+  outName=(/^subrat-nexa-/.test(file.name)?"":"subrat-nexa-")+file.name;
+  outBlob=new Blob([out],{type:"application/pdf"});
+  $("o1").textContent=file.name;$("o2").textContent=outName;
+  $("rp").innerHTML=removed?`Pages validated: ${T}/${T}<br>Overlays removed: ${removed} on page(s) ${touched.join(", ")}`+(review.length?`<br>Needs review: ${review.join(", ")}`:""):
+   `Pages validated: ${T}/${T}<br><b>No structural watermark found.</b> This version only removes watermarks tagged as PDF artifacts or watermark annotations. Flattened or scanned watermarks need the full image-cleaning pipeline.`;
+  stopGame();show(3);
+ }catch(e){stopGame();show(1);$("err").textContent="Processing failed: "+e.message}
+};
+$("cn").onclick=()=>{if(confirm("Stop cleaning this PDF?")){cancelled=true;stopGame();show(1)}};
+$("dl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(outBlob);a.download=outName;a.click()};
+$("again").onclick=()=>{emo="";$("ft").value="";$("fo").textContent="";$("fs").disabled=false;document.querySelectorAll("#em button").forEach(x=>x.classList.remove("sel"));file=null;$("fc").classList.add("hide");$("f").value="";show(1)};
+/* game */
+let G=null,best=0,snd=false,AC;
+try{best=+localStorage.getItem("cpbest")||0}catch(e){}
+function beep(f,d){if(!snd)return;try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;g.gain.value=.04;o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+$("snd").onclick=()=>{snd=!snd;$("snd").textContent=snd?"🔊 Sound on":"🔇 Sound off"};
+function startGame(){
+ stopGame();$("bs").textContent=best;let s=0,c=0,t=30,hits=0,miss=0;const f=$("field");f.innerHTML="";
+ const mult=()=>c>=10?3:c>=5?2:1;
+ const up=()=>{$("sc").textContent=s;$("cb").textContent=c?c+" ×"+mult():0};
+ const pop=(txt,x,y,bad)=>{const p=document.createElement("div");p.className="pop"+(bad?" bad":"");p.textContent=txt;p.style.left=x+"px";p.style.top=y+"px";f.appendChild(p);setTimeout(()=>p.remove(),700)};
+ const shake=()=>{f.classList.remove("shake");void f.offsetWidth;f.classList.add("shake")};
+ const wm=["DRAFT","SAMPLE","COPY","CONFIDENTIAL","PREVIEW"],dc=["Page 3","Title","Figure 2","Total"];
+ const spawn=()=>{
+  if(document.hidden)return;
+  const r=Math.random(),k=r<.12?"gold":r<.34?"decoy":"wm",b=document.createElement("button");
+  b.className="mk "+k;b.textContent=k==="decoy"?dc[Math.random()*4|0]:k==="gold"?"★ BONUS":wm[Math.random()*5|0];
+  b.style.left=Math.random()*Math.max(10,f.clientWidth-120)+"px";b.style.top=Math.random()*Math.max(10,f.clientHeight-36)+"px";
+  if(k==="wm")b.style.transform="rotate("+((Math.random()*50-35)|0)+"deg)";
+  b.onclick=e=>{e.stopPropagation();const x=b.offsetLeft,y=b.offsetTop;b.remove();
+   if(k==="decoy"){s=Math.max(0,s-5);c=0;miss++;pop("-5 (keep it!)",x,y,1);beep(160,.15);shake()}
+   else{const v=(k==="gold"?50:10)*mult();c++;hits++;s+=v;pop("+"+v,x,y);beep(520+c*30,.07)}
+   up()};
+  f.appendChild(b);setTimeout(()=>b.remove(),k==="gold"?1100:Math.max(900,1700-hits*20));
+ };
+ const loop=()=>{spawn();G.to=setTimeout(loop,Math.max(260,750-(30-t)*16))};
+ G={};G.to=setTimeout(loop,300);
+ G.tt=setInterval(()=>{if(document.hidden)return;t--;$("tm").textContent=t;if(t<=0){
+  stopGame();const nb=s>best;if(nb){best=s;$("bs").textContent=s;try{localStorage.setItem("cpbest",s)}catch(e){}}
+  const rank=s>=400?"Page Perfectionist":s>=200?"Sharp Eye":s>=80?"Getting Warm":"Warming Up";
+  f.innerHTML="<div class='end'><b>"+rank+"</b><br>Score: "+s+(nb?" 🏆 New best!":"")+"<br>Best score: "+best+"<br><span class='mu'>"+hits+" cleaned • "+miss+" wrong</span></div>"}},1000);
+ f.onclick=()=>{s=Math.max(0,s-2);c=0;up();shake()};
+ up();$("tm").textContent=t;
+}
+function stopGame(){if(G){clearTimeout(G.to);clearInterval(G.tt);G=null}}
+$("pl").onclick=startGame;
+
+
+const MODAL={how:"<h2>How It Works</h2><ol><li><b>Upload</b> a PDF you own or may edit. It is checked instantly.</li><li><b>Start Cleaning.</b> Each page is scanned and watermark objects are removed. Text, images and layout stay untouched.</li><li><b>Download</b> the clean PDF, named subrat-nexa-yourfile.pdf.</li></ol><p class='mu'>Works on watermarks stored as PDF artifacts or watermark annotations. Flattened or scanned watermarks are not removed.</p>",
+priv:"<h2>Privacy</h2><ul><li>Your PDF is processed inside your browser. It is never uploaded to a server.</li><li>Your original file is never changed.</li><li>No ads or tracking.</li><li>Feedback is sent only if you press Send feedback, and contains only what you type plus the emoji you pick.</li><li>Encrypted PDFs are not supported.</li></ul>"};
+document.querySelectorAll("[data-m]").forEach(a=>a.onclick=e=>{e.preventDefault();$("mb").innerHTML=MODAL[a.dataset.m];$("md").showModal()});
+$("mc").onclick=()=>$("md").close();
+$("md").onclick=e=>{if(e.target===$("md"))$("md").close()};
+let emo="";
+document.querySelectorAll("#em button").forEach(b=>b.onclick=()=>{emo=emo===b.dataset.e?"":b.dataset.e;document.querySelectorAll("#em button").forEach(x=>x.classList.toggle("sel",x.dataset.e===emo))});
+$("fs").onclick=async()=>{
+ const t=$("ft").value.trim();if(!emo&&!t){$("fo").textContent="Pick an emoji or write a note first.";return}
+ $("fs").disabled=true;$("fo").textContent="Sending…";
+ try{
+  const r=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+   body:JSON.stringify({access_key:"f3644d40-32a7-4f62-961d-3bb940cf9c94",subject:"PDF Watermark Remover feedback "+emo,from_name:"PDF Watermark Remover",rating:emo||"none",message:t||"(no text)",file_processed:file?file.name:""})});
+  const j=await r.json();if(!j.success)throw 0;$("fo").textContent="Thank you! 💙 Your feedback was sent.";
+ }catch(e){$("fo").textContent="Couldn't send. Please try again.";$("fs").disabled=false}
+};
+</script></body></html>
